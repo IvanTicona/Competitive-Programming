@@ -2,21 +2,19 @@
 
 using namespace std;
 
-void swap(int &a, int &b) {
-    int temp = a;
-    a = b;
-    b = temp;
+void swap(int &c, int &n) {
+  int aux = c;
+  c = n;
+  n = aux;
 }
 vector<int> getPos(string &s) {
-  vector<int> positions;
+  vector<int> pos;
   int n = s.length();
   for (int i = 0; i < n;i++) {
     if(s[i+1]=='B'||(s[i]=='B'&& i==n-1)) continue;
-    if (s[i] == 'B') {
-      positions.push_back(i);
-    }
+    if (s[i] == 'B') pos.push_back(i);
   }
-  return positions;
+  return pos;
 }
 
 int main(){
@@ -31,6 +29,6 @@ int main(){
       swap(s[pos[i]],s[pos[i]+1]);
     }
   }
-  cout<<s<<endl;
+  cout<<s;
   return 0;
 }
