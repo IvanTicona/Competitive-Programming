@@ -12,12 +12,12 @@ int main(){
 
     lli n, k;
     cin>>n>>k;
-    lli div = k/(n-1);
-    lli ex = k%(n-1);
-    lli kth = ex + div*n;
-    if(ex == 0) kth--;
+    lli r = k/(n-1);
+    lli d = k%(n-1);
+    lli kth = d + r*n;
+    if(d == 0) kth--;
     cout<<kth<<endl;
-    
+
   }
 
   return 0;
