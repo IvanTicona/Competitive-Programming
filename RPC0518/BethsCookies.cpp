@@ -1,55 +1,73 @@
 #include<bits/stdc++.h>
-#define input freopen("in.txt", "r", stdin)
 
 using namespace std;
 
+int precedencia(char op) {
+    if (op == '*')
+        return 2;
+    if (op == '+')
+        return 1;
+    return 0;
+}
 
-string postfijo(string infijo){
+string shuntingYard(const string &exp) {
+    stack<char> operadores;
+    string salida;
 
-  string postFijo;
-  stack<char> pila;
-  
-  for (int i = 0; i < infijo.size(); i++){
-    
-    if(infijo[i] == '1') postFijo+="1"; //✅
-
-    else if(infijo[i] == '(') pila.push('('); //✅
-    
-    else if(infijo[i] == '+'){
-      while (pila.top() != '('){
-        postFijo+=pila.top();
-        pila.pop();
-      }
-      pila.push('+');
+    for (char ch : exp) {
+        if (ch == '1') {
+            salida += ch;
+        } else if (ch == '(') {
+            operadores.push(ch);
+        } else if (ch == ')') {
+            while (!operadores.empty() && operadores.top() != '(') {
+                salida += operadores.top();
+                operadores.pop();
+            }
+            if (!operadores.empty() && operadores.top() == '(') {
+                operadores.pop();
+            }
+        } else if (ch == '*' || ch == '+') {
+            while (!operadores.empty() && precedencia(operadores.top()) >= precedencia(ch)) {
+                salida += operadores.top();
+                operadores.pop();
+            }
+            operadores.push(ch);
+        }
     }
-    
-    else if(infijo[i] == '*') pila.push('*');
-    
-    else if(infijo[i] == ')'){
-      while (pila.top() != '('){
-        postFijo+=pila.top();
-        pila.pop();
-      }
-      pila.pop();
+
+    while (!operadores.empty()) {
+        salida += operadores.top();
+        operadores.pop();
     }
-  }
 
-  while (!pila.empty()){
-    postFijo+=pila.top();
-    pila.pop();
-  }
+    return salida;
+}
 
-  return postFijo;
+int evaluarPostfija(const string &exp) {
+    stack<int> pila;
+
+    for (char ch : exp) {
+        if (ch == '1') {
+            pila.push(1);
+        } else if (ch == '*' || ch == '+') {
+            int op2 = pila.top();
+            pila.pop();
+            int op1 = pila.top();
+            pila.pop();
+
+            if (ch == '*') {
+                pila.push(op1 * op2);
+            } else if (ch == '+') {
+                pila.push(op1 + op2);
+            }
+        }
+    }
+
+    return pila.top();
 }
 
 int main(){
-
-    input;
-
-    int w;
-    cin>>w;
-    while (w--){
-    
 
     int n;
     string brackets, exp, infijo;
@@ -69,13 +87,8 @@ int main(){
       if(exp[i] == '(' && exp[i+2] ==')' || exp[i-2] == '(' && exp[i] ==')') continue;
       infijo+=exp[i];
     }
-    //infijo
 
-    cout<<"INFIJO: "<<infijo<<endl;
-    cout<<"POSTFIJO: "<<postfijo(infijo)<<endl;
-    cout<<endl;
-    }
-    
+    cout<<evaluarPostfija(shuntingYard(infijo))<<endl;
 
   return 0;
 }
