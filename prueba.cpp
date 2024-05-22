@@ -1,27 +1,27 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int main(){
 
-    string input = "(((1)*((1)*(1)+1)+1)+1)";
-    stack<char> pila;
-    
-    for (int i = 0; i < input.size(); i++){
-      if(input[i] != '1'){
-        pila.push(input[i]);
+  int n;
+  cin >> n;
+  while (n--){
+    string s;
+    cin >> s;
+    bool dif = false;
+    for (int i = 0; i < s.size()-1; i++){
+      if(s[i]!=s[i+1]){
+        dif = true;
+        break;
       }
     }
-    for(int i = 0; i < input.size(); i++){
-      if(input[i] != ')' && input[i] != '(' && input[i] != '+' && input[i] != '*'){
-        pila.push(input[i]);
-      }
+    if(dif){
+      char aux = s[0];
+      cout<<"YES"<<endl<<s.substr(1)+aux<<endl;
+    }else{
+      cout<<"NO"<<endl;
     }
-    
-    while(!pila.empty()){
-      cout<<pila.top()<<" ";
-      pila.pop();
-    }
-
+  }
   return 0;
 }
