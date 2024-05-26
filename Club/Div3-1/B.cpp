@@ -3,7 +3,7 @@
 using namespace std;
 
 void sumParity(int n, int k) {
-  if (n < k || n%2 == 1 && k%2 == 0) {
+  if (n < k || (n%2 == 1 && k%2 == 0)) {
       cout<<"NO"<<endl;
       return;
   }
