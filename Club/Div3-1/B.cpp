@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
-
+ 
 using namespace std;
-
+ 
 void sumParity(int n, int k) {
   if (n < k || (n%2 == 1 && k%2 == 0)) {
       cout<<"NO"<<endl;
@@ -25,7 +25,7 @@ void sumParity(int n, int k) {
   }
   cout<<"NO"<<endl;
 }
-
+ 
 int main() {
   int t;
   cin >> t;
