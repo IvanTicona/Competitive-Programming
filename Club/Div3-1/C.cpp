@@ -2,24 +2,26 @@
 
 using namespace std;
 
-#define input freopen("input.txt", "r", stdin)
-
 int main(){
-  input;
-  int t, count;
-  cin >> t;
-  while (t--){
-    int n;
-    cin >> n;
-    for (int i = 1; i <= n; i = i * 10){
-      if ((n / i) % 10 != 0) count++;
+
+  int a, c;
+  cin>>a;
+  while (a--)
+  {
+    int b;
+    cin>>b;
+    
+    for (int i = 1; i <= b; i = i * 10){
+      if ((b / i) % 10 != 0) c++;
     }
-    cout << count << endl;
-    count = 0;
-    for (int i = 10; i <= n * 10; i = i * 10){
-      if (n % i != 0) cout << n % i << " ";
-      n -= n % i;
+    cout<<c<<endl;
+    c = 0;
+    for (int i = 10; i <= b * 10; i = i * 10){
+      if (b % i != 0) cout<<b % i<<" ";
+      b -= b % i;
     }
-    cout << endl;
+    cout<<endl;
   }
+
+  return 0;
 }
