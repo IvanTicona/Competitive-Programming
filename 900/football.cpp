@@ -18,11 +18,3 @@ int main(){
 
   return 0;
 }
-
-//INSANE CODE
-// char a[101],i,s;
-// main(){
-//   for(gets(a);
-//     s^6? a[++i]||puts("NO"):puts("YES");
-//     a[i]^a[i-1]? s=0:++s);
-// }
