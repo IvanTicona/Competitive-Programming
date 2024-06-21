@@ -4,21 +4,13 @@ using namespace std;
 
 int main(){
 
-  string s;
-  cin >> s;
-
-  string hello = "hello";
+  string s, hello = "hello";
+  cin>>s;
   int j = 0;
   for (int i = 0; i < s.size(); i++){
-    if (s[i] == hello[j]){
-      j++;
-    }
+    if (s[i] == hello[j]) j++;
   }
-  if (j == 5){
-    cout << "YES" << endl;
-  }else{
-    cout << "NO" << endl;
-  }
+  j==5?cout<<"YES":cout<<"NO";
 
   return 0;
 }
