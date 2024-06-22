@@ -1,23 +1,29 @@
-#include <bits/stdc++.h>
- 
+#include<bits/stdc++.h>
+
 using namespace std;
- 
-const int MAX = 200'007;
-const int MOD = 1'000'000'007;
- 
-void solve() {
-	string s;
-	cin >> s;
-	int res = 1;
-	bool ex = false;
-	for (int i = 0; i + 1 < (int)(s.size()); i++) {
-		res += (s[i] != s[i + 1]);
-		ex |= (s[i] == '0' && s[i + 1] == '1');
-	}
-	cout << res - ex << '\n';
-}
- 
-int main() {
-	int tt; cin >> tt; for (int i = 1; i <= tt; i++) {solve();}
-	// solve();
+
+int main(){
+
+  int t;
+  cin>>t;
+  while (t--){
+    string s;
+    cin>>s;
+    int cero = 0;
+    int uno = 0;
+    int pieces = 0;
+    bool half = false;
+    for (int i = 0; i < s.size(); i++){
+      if(s[i] == '0') cero++;
+      if(s[i] == '1') uno++;
+      if(s[i]=='0' && s[i+1]=='1' && !half){
+        half = true;
+      }else if(s[i]!=s[i+1]){
+        pieces++;
+      }
+    }
+    if(cero==s.size()||uno==s.size())cout<<1<<endl;
+    else cout<<pieces<<endl;
+  }
+  return 0;
 }
