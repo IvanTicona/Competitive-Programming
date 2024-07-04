@@ -1,0 +1,51 @@
+#include<bits/stdc++.h>
+
+// using namespace std;
+
+// int parents[1001];
+
+// int Find(int x){
+//   if(x==parents[x]) return x;
+//   else return parents[ x ] = Find( parents[ x ] );
+// }
+
+// // int required;
+
+// void Union( int x , int y){
+//   // required--;
+//   int xRoot = Find( x );
+//   int yRoot = Find( y );
+//   parents[ xRoot ] = yRoot;
+// }
+
+
+// int main(){
+
+//   int n;
+//   cin>>n;
+//   while(n--){
+//     int m, r;
+//     cin>>m;
+//     // required=m;
+//     for (int i = 0; i < m; i++){
+//       parents[i]=i;
+//     }
+//     cin>>r;
+//     for (int i = 0; i < r; i++){
+//       int a, b;
+//       cin>>a>>b;
+//       Union(a,b);
+//     }
+//     cout<<"[";
+//     for (int i = 0; i < m; i++){
+//       cout<<parents[i]<<" ";
+//     }
+//     cout<<"]"<<endl;
+    
+//     // cout<<required-1<<endl;
+    
+//   }
+  
+
+//   return 0;
+// }
