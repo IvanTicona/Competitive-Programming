@@ -2,66 +2,64 @@
 
 using namespace std;
 
-int boats[100100];
-bool haveBoat[100100];
-int personHave[100100];
 
-int groups;
+int people[100100];
+bool hasBoat[100100];
+bool hasFriend[100100];
+
+void makePeople(int n){
+  memset(people, 0, sizeof(people));
+  for (int i = 0; i < n; i++){
+    people[i] = i;
+  }
+}
 
 int Find(int x){
-  if(x==boats[x]) {
-    return x;
-  }
-  else return boats[x]=Find(boats[x]);
+  if(x == people[x]) return x;
+  else return people[x] = Find(people[x]);
 }
 
-void St(int x){
-  if(x==boats[x]) {
-    haveBoat[x]=true;
-  }
-  else St(boats[x]);
-}
-
-void Union(int a, int b){
-  groups--;
-  int ra = Find(a);
-  int rb= Find(b);
-  boats[rb] = ra;
+void Union(int x, int y){
+  int rx = Find(x);
+  int ry = Find(y);
+  people[rx] = ry;
 }
 
 int main(){
 
-  memset(boats,0,sizeof(boats));
-  memset(haveBoat,false,sizeof(haveBoat));
   int n, b, m;
   cin>>n>>b>>m;
-  groups=n;
-  for (int i = 1; i <= n; i++){boats[i]=i;}
-
+  makePeople(n);
+  memset(hasBoat, false, sizeof(hasBoat));
+  memset(hasFriend, false, sizeof(hasFriend));
   for (int i = 0; i < b; i++){
     int a;
     cin>>a;
-    personHave[i] = a;
+    hasBoat[a-1] = true;
   }
-
   for (int i = 0; i < m; i++){
-    int a, b;
-    cin>>a>>b;
-    Union(a,b);
+    int x, y;
+    cin>>x>>y;
+    Union(x-1,y-1);
   }
-
-  for (int i = 0; i < b; i++){
-    St(personHave[i]);
-  }
-  
-  int aux=0, wo=0;
-  for (int i = 1; i <= n; i++){
-    if(haveBoat[Find(i)] && aux!=Find(i)){
-      aux=Find(i);
-      wo++;
+  //si un amigo tiene bote entonces su representativo tambien tiene bote
+  for (int i = 0; i < n; i++){
+    int r = Find(i);
+    if(hasBoat[i]){
+      hasFriend[r]=true;
     }
   }
-  cout<<groups-wo<<endl;
+  int need=0;
+  //si tu representativo no tiene bote, le compras 1
+  // y sumas a la cuenta de los que necesitaban
+  for (int i = 0; i < n; i++){
+    int r = Find(i);
+    if(!hasFriend[r]){
+      need++;
+      hasFriend[r]=true;
+    }
+  }
+  cout<<need<<endl;
 
   return 0;
 }
