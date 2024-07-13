@@ -1,48 +1,46 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
-vector<int> countries[200010];
-int partner[200010];
-int leavepartner[200010];
-bool leave[200010];
+vector<int> grafo[200010];
+int degree[200010];
+int lostPartners[200010];
+bool leftUnion[200010];
 
 int main(){
 
-  int C, P, X, L;
-  cin>>C>>P>>X>>L;
-
-  for (int i = 0; i < P; i++){
-    int A, B;
-    cin>>A>>B;
-    countries[A].push_back(B);
-    countries[B].push_back(A);
-    partner[A]++;
-    partner[B]++;
+  int c, p, x, l;
+  cin>>c>>p>>x>>l;
+  for (int i = 0; i < p; i++){
+    int a, b;
+    cin>>a>>b;
+    //Los socios son socios entre si, no uno si y el otro no
+    grafo[b].push_back(a);
+    grafo[a].push_back(b);
+    degree[a]++;
+    degree[b]++;
   }
 
-  queue<int> pq;
-  pq.push(L);
-  leave[L]=true;
+  memset(lostPartners,0,sizeof(lostPartners));
+  memset(leftUnion,false,sizeof(leftUnion));
+
+  priority_queue<int> pq;
+  pq.push(l);
+  leftUnion[l]=true;
 
   while (!pq.empty()){
-    int na=pq.front();
-    pq.pop();
-
-    for (auto &vec: countries[na]){
-      leavepartner[vec]++;
-      if (!leave[vec] && leavepartner[vec]*2 >= partner[vec]){
-        leave[vec]=true;
+    int nodoActual=pq.top(); pq.pop();
+    for(int vec: grafo[nodoActual]){
+      lostPartners[vec]++;
+      if(!leftUnion[vec]&&lostPartners[vec]*2>=degree[vec]){
+        leftUnion[vec]=true;
         pq.push(vec);
       }
     }
   }
-
-  if (leave[X]){
-    cout<<"leave"<<endl;
-  }else{
-    cout<<"stay"<<endl;
-  }
+  
+  if(leftUnion[x]) cout<<"leave"<<endl;
+  else cout<<"stay"<<endl;
 
   return 0;
 }
