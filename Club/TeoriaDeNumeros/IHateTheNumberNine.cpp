@@ -4,16 +4,16 @@ using namespace std;
 
 typedef long long ll;
 
-ll mod_pow(ll base, ll exp, ll mod){
-  ll res = 1;
-  while (exp > 0){
-    if (exp % 2 == 1){
-      res = (res * base) % mod;
-    }
-    base = (base * base) % mod;
-    exp /= 2;
-  }
-  return res;
+ll mod(ll a, ll mod){
+  return ((a%mod)+mod)%mod;
+}
+
+ll modPow(ll b, ll p, ll m) {
+  if (p == 0) return 1;
+  ll ans = modPow(b, p/2, m);
+  ans = mod(ans*ans, m);
+  if (p&1) ans = mod(ans*b, m);
+  return ans;
 }
 
 int main(){
@@ -25,7 +25,7 @@ int main(){
   while(t--){
     ll d;
     cin>>d;
-    ll answer = 8 * mod_pow(9, d-1, MOD) % MOD;
+    ll answer = 8 * modPow(9, d-1, MOD) % MOD;
     cout<<answer<<endl;
   }
 
