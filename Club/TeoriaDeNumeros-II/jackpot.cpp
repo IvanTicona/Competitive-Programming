@@ -2,14 +2,11 @@
 
 using namespace std;
 
-typedef unsigned long long ll;
-
-ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a%b); }
-ll lcm(ll a, ll b) { return a / gcd(a, b) * b; }
+typedef long long ll;
 
 ll f(vector<ll> &p){
   ll per=p[0];
-  for (int i = 0; i < p.size(); i++){
+  for (int i = 1; i < p.size(); i++){
     ll r = gcd(per,p[i]);
     per *= p[i];
     per /= r;
