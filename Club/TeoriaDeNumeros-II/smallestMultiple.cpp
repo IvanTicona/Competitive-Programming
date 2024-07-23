@@ -1,17 +1,30 @@
-// import sys
-// import math
-// from functools import reduce
+#include <bits/stdc++.h>
 
-// def lcm(a, b):
-//     return a * b // math.gcd(a, b)
+using namespace std;
 
-// def main():
-//     for line in sys.stdin:
-//         if not line.strip():
-//             continue
-//         nums = list(map(int, line.split()))
-//         result = reduce(lcm, nums, 1)
-//         print(result)
+typedef unsigned long long ll;
 
-// if __name__ == "__main__":
-//     main()
+int main() {
+
+  string line;
+  while (getline(cin, line)) {
+    if (line.empty()) continue;
+
+    stringstream ss(line);
+    vector<ll> nums;
+    long long num;
+
+    while (ss >> num) {
+      nums.push_back(num);
+    }
+    ll res=1;
+    for(ll n: nums){
+      ll r = gcd(res,n);
+      res *= n;
+      res /= r;
+    }
+    cout<<res<<endl;
+  }
+
+  return 0;
+}
