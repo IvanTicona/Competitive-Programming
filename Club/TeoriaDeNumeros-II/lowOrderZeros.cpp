@@ -4,6 +4,7 @@ using namespace std;
 
 typedef long long ll;
 
+
 int main(){
 
   vector<int> ans(1000001, 0);
