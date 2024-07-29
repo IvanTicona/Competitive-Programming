@@ -78,7 +78,7 @@ for h in range(4):
 print(answer_matrix)
 
 # print(check_polygon(4, 4, 0b1111100111100000))
-answer_matrix = [[1, 3, 6, 10], [3, 13, 40, 108], [6, 40, 217, 1109], [10, 108, 1109, 10977]]
+# answer_matrix = [[1, 3, 6, 10], [3, 13, 40, 108], [6, 40, 217, 1109], [10, 108, 1109, 10977]]
     
-h, w = map(int, input().split())
-print(answer_matrix[h-1][w-1])
+# h, w = map(int, input().split())
+# print(answer_matrix[h-1][w-1])
