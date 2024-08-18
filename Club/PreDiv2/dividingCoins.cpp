@@ -1,21 +1,41 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int main(){
+// CoinPos, DiffGoingintoit
+int numCoins;
+int lowestDiff[100][100 * 500];
+int coins[100];
 
-  int n; cin>>n;
+int GetBest(int coin, int diff){
+  if (coin == numCoins)
+    return diff;
 
-  while (n--){
-    int m; cin>>m; // number of coins
-    int coins[m];
-    memset(coins,0,sizeof(coins));
-    for (int i = 0; i < m; i++) cin>>coins[i];
-    
-    
+  int &bestDiff = lowestDiff[coin][diff];
 
+  if (bestDiff == -1){
+    bestDiff = min(GetBest(coin + 1, diff + coins[coin]),
+                   GetBest(coin + 1, abs(diff - coins[coin])));
   }
-  
 
-  return 0;
+  return bestDiff;
+}
+
+int main(){
+  
+  int t;
+  cin>>t;
+  
+  while (t--){
+    cin>>numCoins;
+    int maxSum = 500 * numCoins;
+    
+    for (int i = 0; i < numCoins; i++){
+      for (int j = 0; j < maxSum; j++){
+        lowestDiff[i][j] = -1;
+      }
+    }
+    
+    cout<<GetBest(0, 0)<<endl;
+  }
 }
