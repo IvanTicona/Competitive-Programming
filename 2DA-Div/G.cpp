@@ -3,28 +3,32 @@
 using namespace std;
 typedef long long ll;
 
-int N=5;
-ll memo[20][1000000];
-int coinValue[]={1,3,6,10,15};
+int dp[100000000];
+// vector<ll> dp(1000000001, -1);
+ll coins[] = { 1, 3, 6, 10, 15};
 
-ll dp(ll type, ll value){
-  if(value==0) return 1;
-  if((value<0)||(type==N)) return 0;
-  ll &ans = memo[type][value];
-  if(ans!=-1) return ans;
-  return ans = dp(type+1, value)+dp(type, value-coinValue[type]);
+ll f(ll x){
+  if(x==0) return 0;
+  if(dp[x]==-1){
+    ll minCoins = 100000000;
+    for (int i = 0; i < 5; i++){
+      if(x>=coins[i]){
+        ll sol = f(x-coins[i])+1;
+        minCoins = min(sol, minCoins);
+      }
+    }
+   dp[x] = minCoins;
+  }
+  return dp[x];
 }
 
-int main(){
+int main() {
 
-  int t;
-  cin>>t;
-  while (t--){
-    memset(memo, -1, sizeof(memo));
-    int n;
-    cin>>n;
-    cout<<dp(0,n)<<endl;
+  int t; cin>>t;
+  while(t--){
+  memset(dp, -1, sizeof(dp));
+  ll n; 
+  cin>>n;
+  cout<<f(n);
   }
-
-  return 0;
 }
