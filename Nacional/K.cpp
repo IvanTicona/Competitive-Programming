@@ -5,57 +5,78 @@ using namespace std;
 typedef vector<int> vi;
 typedef vector<bool> vb;
 
-vi findSubset(vi &nums){
+pair<vi, vi> findEqualSubset(const vi &nums) {
+    int totalSum = accumulate(nums.begin(), nums.end(), 0);
+    if (totalSum % 2 != 0) return {{}, {}};  // Si la suma total es impar, no es posible
 
-  int totalSum = accumulate(nums.begin(), nums.end(), 0);
-  if (totalSum % 2 != 0) return {};
+    int target = totalSum / 2;
+    int n = nums.size();
 
-  int target = totalSum / 2;
-  int n = nums.size();
+    vb dp(target + 1, false);
+    dp[0] = true;
 
-  // Crear un vector dp de tamaño (target + 1) inicializado a false
-  vb dp(target + 1, false);
-  dp[0] = true;
+    unordered_map<int, int> parent;
 
-  // Crear un mapa para almacenar los elementos que llevan a la suma j
-  unordered_map<int, int> parent;
-
-  // Iterar sobre cada número en la lista
-  for (int num : nums){
-    // Actualizar dp[] desde el final hacia el principio para evitar el uso de un número más de una vez
-    for (int j = target; j >= num; j--){
-      if (dp[j - num]){
-        dp[j] = true;
-        parent[j] = num; // Guardar el número que lleva a la suma j
-      }
+    for (int num : nums) {
+        for (int j = target; j >= num; j--) {
+            if (dp[j - num]) {
+                dp[j] = true;
+                parent[j] = num;
+            }
+        }
     }
-  }
 
-  if (!dp[target]) return {};
+    if (!dp[target]) return {{}, {}};  // No es posible formar dos subconjuntos iguales
 
-  vi subset;
-  int sum = target;
-  while (sum > 0){
-    int num = parent[sum];
-    subset.push_back(num);
-    sum -= num;
-  }
+    vi subset;
+    vi remaining = nums;
+    int sum = target;
+    while (sum > 0) {
+        int num = parent[sum];
+        subset.push_back(num);
+        sum -= num;
+        remaining.erase(find(remaining.begin(), remaining.end(), num));
+    }
 
-  return subset;
+    return {subset, remaining};
 }
 
-int main(){
+int main() {
+    int n; cin >> n;
+    vi nums(n);
+    for (int &v : nums) cin >> v;
 
-  // vi nums = {1, 12, 21, 23, 33, 34};
-  // vi nums = {1, 2, 2, 3};
-  vi nums = {1, 2, 2, 3, 6};
-  vi subset = findSubset(nums);
+    auto [subset, remaining] = findEqualSubset(nums);
 
-  if(!subset.empty()){
-    for (int num: subset) cout<<num<<" ";
-  }else{
-    cout<< -1<<endl;
-  }
+    if (subset.empty()) {
+        cout << -1 << endl;
+        return 0;
+    }
 
-  return 0;
+    // Verificar que las sumas de los dos subconjuntos son iguales
+    sort(subset.begin(), subset.end(), greater<int>());
+    sort(remaining.begin(), remaining.end(), greater<int>());
+
+    int sumSubset = accumulate(subset.begin(), subset.end(), 0);
+    int sumRemaining = accumulate(remaining.begin(), remaining.end(), 0);
+
+    if (sumSubset != sumRemaining) {
+        cout << -1 << endl;
+        return 0;
+    }
+
+    // Imprimir los elementos en el orden correcto
+    while (!subset.empty() || !remaining.empty()) {
+        if (!subset.empty()) {
+            cout << subset.back() << " ";
+            subset.pop_back();
+        }
+        if (!remaining.empty()) {
+            cout << remaining.back() << " ";
+            remaining.pop_back();
+        }
+    }
+    cout << endl;
+
+    return 0;
 }

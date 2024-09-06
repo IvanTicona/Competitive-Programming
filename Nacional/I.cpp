@@ -2,67 +2,84 @@
 
 using namespace std;
 
-typedef long long ll;
-typedef vector<ll> vll;
+const int MOD = 1e9 + 7;
+const int MAXV = 1e6 + 5;
 
-ll bound = 1e9+7;
-ll _sieve_size;
-bitset<10000010> bs; // 10^7 is the rough limit
-vll primos;
+vector<int> prime_factors[MAXV];
+bitset<MAXV> is_composite;
 
-void sieve(ll upperbound) {
-  _sieve_size = upperbound+1;
-  bs.set();
-  bs[0] = bs[1] = 0;
-  for (ll i = 2; i < _sieve_size; ++i) if (bs[i]) {
-    for (ll j = i*i; j < _sieve_size; j += i) bs[j] = 0;
-    primos.push_back(i);
-  }
-}
-
-set<ll> primeFactors(ll N) { // pre-condition, N >= 1
-  set<ll> factors;
-  for (int i = 0; (i < (int)primos.size()) && (primos[i]*primos[i] <= N); ++i)
-    while (N%primos[i] == 0) {
-    N /= primos[i];
-    factors.insert(primos[i]);
-  }
-  if (N != 1) factors.insert(N);
-  return factors;
-}
-
-ll Pow(ll b, ll e){
-  ll r=1;
-  while(e--){
-    r*=b;
-    r%=bound;
-  }
-  return r%bound;
-}
-
-int main(){
-
-  sieve(1000000);
-
-  int N; cin>>N;
-  vll foods(N);
-  for(ll &Vi: foods) cin>>Vi;
-
-  int Q; cin>>Q;
-  while (Q--){
-    ll allergies=0;
-    int Xi; cin>>Xi;
-    set<ll> factores = primeFactors(Xi);
-    for(ll Vi: foods){
-      for(ll prime: factores){
-        if(Vi%prime==0){
-          allergies++;
-          break;
+void sieve() {
+    for (int i = 2; i < MAXV; i++) {
+        if (!is_composite[i]) {
+            for (int j = i; j < MAXV; j += i) {
+                is_composite[j] = 1;
+                prime_factors[j].push_back(i);
+            }
         }
-      }
     }
-    cout<<Pow(2,N-allergies)<<endl;
-  }
+}
 
-  return 0;
+int mod_pow(int base, int exp, int mod) {
+    int result = 1;
+    while (exp > 0) {
+        if (exp % 2 == 1)
+            result = (1LL * result * base) % mod;
+        base = (1LL * base * base) % mod;
+        exp /= 2;
+    }
+    return result;
+}
+
+int main() {
+    sieve();
+
+    int N;
+    cin >> N;
+    vector<int> foods(N);
+    unordered_map<int, int> food_count_by_prime;
+
+    for (int i = 0; i < N; i++) {
+        cin >> foods[i];
+        unordered_set<int> unique_primes(prime_factors[foods[i]].begin(), prime_factors[foods[i]].end());
+        for (int p : unique_primes) {
+            food_count_by_prime[p]++;
+        }
+    }
+
+    int total_combinations = mod_pow(2, N, MOD);
+
+    int Q;
+    cin >> Q;
+    while (Q--) {
+        int X;
+        cin >> X;
+
+        unordered_set<int> allergy_primes(prime_factors[X].begin(), prime_factors[X].end());
+
+        int invalid_combinations = 0;
+        int num_subsets = 1 << allergy_primes.size();
+        vector<int> primes(allergy_primes.begin(), allergy_primes.end());
+
+        for (int mask = 1; mask < num_subsets; mask++) {
+            int count = 0;
+            int lcm_count = N;
+            for (int i = 0; i < primes.size(); i++) {
+                if (mask & (1 << i)) {
+                    lcm_count -= food_count_by_prime[primes[i]];
+                    count++;
+                }
+            }
+            int contribution = mod_pow(2, lcm_count, MOD);
+            if (count % 2 == 1) {
+                invalid_combinations = (invalid_combinations + contribution) % MOD;
+            } else {
+                invalid_combinations = (invalid_combinations - contribution + MOD) % MOD;
+            }
+        }
+
+        int safe_combinations = (total_combinations - invalid_combinations + MOD) % MOD;
+        cout << safe_combinations << endl;
+    }
+
+    return 0;
 }
