@@ -2,81 +2,135 @@
 
 using namespace std;
 
-typedef vector<int> vi;
-typedef vector<bool> vb;
+// BOTTOM UP
+/*int main(){
+	
+// 	int n, suma, v[110];
+// 	bool dp[110][10100];
 
-pair<vi, vi> findEqualSubset(const vi &nums) {
-    int totalSum = accumulate(nums.begin(), nums.end(), 0);
-    if (totalSum % 2 != 0) return {{}, {}};  // Si la suma total es impar, no es posible
+// 	cin>>n;
+// 	suma = 0;
+// 	for (int i = 1; i <= n; i++){
+// 		cin>>v[i];
+// 		suma += v[i];
+// 	}
+// 	if(suma%2==1){
+// 		cout<<"-1"<<endl;
+// 		return 0;
+// 	}
+// 	suma/=2;
 
-    int target = totalSum / 2;
-    int n = nums.size();
+// 	for (int j = 1; j <= suma; j++) dp[0][j]=false;
 
-    vb dp(target + 1, false);
-    dp[0] = true;
+// 	dp[0][0]=true;
 
-    unordered_map<int, int> parent;
+// 	for (int i = 1; i <= n; i++){
+// 		for (int j = 0; j <= suma; j++){
+// 			dp[i][j]=dp[i-1][j];
+// 			if(v[i]<=j && dp[i-1][j-v[i]]){
+// 				dp[i][j]=true;
+// 			}
+// 		}
+// 	}
+// 	if(!dp[n][suma]){
+// 		cout<<"-1"<<endl;
+// 		return 0;
+// 	}
+	
+// 	vector<int> v1, v2;
+// 	int s=suma;
+// 	for (int i = n; i > 0; i--){
+// 		if(s >= v[i] && dp[i-1][s-v[i]]){
+// 			v1.push_back(v[i]);
+// 			s-=v[i];
+// 		}else{
+// 			v2.push_back(v[i]);
+// 		}
+// 	}
 
-    for (int num : nums) {
-        for (int j = target; j >= num; j--) {
-            if (dp[j - num]) {
-                dp[j] = true;
-                parent[j] = num;
-            }
-        }
-    }
+// 	int s1=0, s2=0, prox;
+// 	for (int i = 1; i <= n; i++){
+// 		if(s1<=s2){
+// 			prox = v1.back();
+// 			v1.pop_back();
+// 			s1+=prox;
+// 		}else{
+// 			prox = v2.back();
+// 			v2.pop_back();
+// 			s2+=prox;
+// 		}
+// 		cout<<prox<<(i==n? "\n":" ");
+// 	}
 
-    if (!dp[target]) return {{}, {}};  // No es posible formar dos subconjuntos iguales
+// 	return 0;
+// }
+*/
+//====================================================
 
-    vi subset;
-    vi remaining = nums;
-    int sum = target;
-    while (sum > 0) {
-        int num = parent[sum];
-        subset.push_back(num);
-        sum -= num;
-        remaining.erase(find(remaining.begin(), remaining.end(), num));
-    }
+// TOP DOWN
+int n, suma, v[110];
+bool marca[110][10100];
+vector<int> v1, v2;
 
-    return {subset, remaining};
+bool dfs(int pos, int s){
+
+	if(marca[pos][s]){
+		return false;
+	}
+	marca[pos][s] = true;
+	if(pos == n){
+		return s == suma;
+	}
+	if(dfs(pos+1,s)){
+		v2.push_back(v[pos]);
+		return true;
+	}
+	if(s+v[pos]<=suma && dfs(pos+1, s+v[pos])){
+		v1.push_back(v[pos]);
+		return true;
+	}
+	return false;
 }
 
-int main() {
-    int n; cin >> n;
-    vi nums(n);
-    for (int &v : nums) cin >> v;
+int main(){
 
-    auto [subset, remaining] = findEqualSubset(nums);
+	cin>>n;
+	suma = 0;
 
-    if (subset.empty()) {
-        cout << -1 << endl;
-        return 0;
-    }
+	for (int i = 0; i < n; i++){
+		cin>>v[i];
+		suma += v[i];
+	}
+	if(suma%2==1){
+		cout<<"-1"<<endl;
+		return 0;
+	}
+	suma/=2;
 
-    // Verificar que las sumas de los dos subconjuntos son iguales
-    sort(subset.begin(), subset.end(), greater<int>());
-    sort(remaining.begin(), remaining.end(), greater<int>());
+	for (int i = 0; i <= n; i++){
+		for (int j = 0; j <= suma; j++){
+			marca[i][j] = false;
+		}
+	}
 
-    int sumSubset = accumulate(subset.begin(), subset.end(), 0);
-    int sumRemaining = accumulate(remaining.begin(), remaining.end(), 0);
+	if(!dfs(0, 0)){
+		cout<<"-1"<<endl;
+		return 0;
+	}
 
-    if (sumSubset != sumRemaining) {
-        cout << -1 << endl;
-        return 0;
-    }
+	int s1=0, s2=0, prox; 
+	for (int i = 1; i <= n; i++){
+		if(s1<=s2){
+			prox = v1.back();
+			v1.pop_back();
+			s1+=prox;
+		}else{
+			prox = v2.back();
+			v2.pop_back();
+			s2+=prox;
+		}
+		cout<<prox<<(i==n? "\n":" ");
+	}
 
-    // Imprimir los elementos en el orden correcto
-    while (!subset.empty() || !remaining.empty()) {
-        if (!subset.empty()) {
-            cout << subset.back() << " ";
-            subset.pop_back();
-        }
-        if (!remaining.empty()) {
-            cout << remaining.back() << " ";
-            remaining.pop_back();
-        }
-    }
-    cout << endl;
-
-    return 0;
+	return 0;
 }

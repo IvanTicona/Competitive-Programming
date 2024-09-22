@@ -2,42 +2,88 @@
 
 using namespace std;
 
-typedef long long ll;
-typedef vector<ll> vll;
+#define MAXN 100100
+#define MAXV 1000100
+#define lli long long int
+#define MOD 1000000007
 
-ll bound = 1e9+7;
-ll _sieve_size;
-bitset<10000010> bs; // 10^7 is the rough limit
-vll primos;
+int n;
+int counter[MAXV];
+int pow2[MAXN];
 
-void sieve(ll upperbound) {
-  _sieve_size = upperbound+1;
-  bs.set();
-  bs[0] = bs[1] = 0;
-  for (ll i = 2; i < _sieve_size; ++i) if (bs[i]) {
-    for (ll j = i*i; j < _sieve_size; j += i) bs[j] = 0;
-    primos.push_back(i);
+bool isPrime[MAXV];
+int factor[MAXV];
+
+vector<int> lista, answer;
+
+void generateMultiples(int pos, int mult){
+  if(pos == lista.size()){
+    answer.push_back(mult);
+    return;
   }
+  generateMultiples(pos+1, mult);
+  generateMultiples(pos+1, mult * (-lista[pos]));
 }
 
-int mod(int a, int m) { return ((a%m)+m) % m; }
+void generate_prime_numbers(int k){
 
-int modPow(int b, int p, int m) {
-  if (p == 0) return 1;
-  int ans = modPow(b, p/2, m);
-  ans = mod(ans*ans, m);
-  if (p&1) ans = mod(ans*b, m);
-  return ans;
+  set<int> primes;
+  while (k>1){
+    primes.insert(factor[k]);
+    k/=factor[k];
+  }
+  lista.clear();
+  for(auto x: primes){
+    lista.push_back(x);
+  }
+  answer.clear();
+  generateMultiples(0, 1);
 }
 
 int main(){
 
-  sieve(1000000);
+  isPrime[1] = false;
+  for(int i = 1; i < MAXV; i++) isPrime[i] = true;
+  for (int i = 2; i < MAXV; i++){
+    if(isPrime[i]){
+      factor[i]=i;
+      for (lli j = 1LL*i*i; j < MAXV; j+=i){
+        factor[j]=i;
+        isPrime[j]=false;
+      }
+    }
+  }
 
-  int N; cin>>N;
-  vll foods(N);
-  for(ll &Vi: foods) cin>>Vi;
-  
+  for (int i = 0; i < MAXV; i++){
+    counter[i]=0;
+  }
+
+  cin>>n;
+  int k;
+  for (int i = 0; i < n; i++){
+    cin>>k;
+    generate_prime_numbers(k);
+    for(auto x: answer){
+      counter[abs(x)]++;
+    }
+  }
+
+  pow2[0]=1;
+  for (int i = 1; i <= n; i++){
+    pow2[i]=(2*pow2[i-1]) % MOD;
+  }
+
+  int q;
+  cin>>q;
+  for (int i = 0; i < q; i++){
+    cin>>k;
+    generate_prime_numbers(k);
+    int sum=0;
+    for(auto x: answer){
+      sum += counter[abs(x)]*(x<0? -1: 1);
+    }
+    cout<<pow2[sum]<<endl;
+  }
 
   return 0;
 }
