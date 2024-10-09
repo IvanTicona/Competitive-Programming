@@ -1,42 +1,81 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-vector<string> sep(string classy){
-  vector<string> parts;
-  string part = "";
-  for (int j = 0; j < classy.size(); j++){
-    if (classy[j] == '-'){
-      parts.push_back(part);
-      part = "";
-    }else{
-      part += classy[j];
-    }
+map<string,unsigned long> m;
+vector<string> v;
+
+//sorts vector, primarily by value, secondary by name
+bool myfunction (string a, string b) {
+  unsigned long al = m[a];
+  unsigned long bl = m[b];
+  if(al != bl){
+    return (m[a]>m[b]);
+  } else {
+    return a.compare(b) < 0;
   }
-  return parts;
 }
 
 int main(){
 
-  freopen("INPUT.txt", "r", stdin);
-  freopen("OUTPUT.txt", "w", stdout);
+  int t;
+  cin >> t;
+  for(int i = 0; i < t; ++i){
+    v.clear();
+    m.clear();
+    int n;
+    cin >> n;
 
-  int t; cin>>t;
+    //read input
+    for(int j = 0; j < n; ++j){
 
-  while (t--){
-    int n; cin>>n;
-    for (int i = 0; i < n; i++){
-      string name; cin>>name;
-      string classy = "";
-      for (int i = 0; ; i++){
-        if (name[i] == ':'){
-          break;
+      string name; cin >> name;
+      name = name.substr(0,name.length()-1);
+
+      string class_string; cin >> class_string; //class
+      string throw_away; cin >> throw_away; //throw away "class"
+
+
+      string class_value = "";    //Empty string to start with
+      istringstream ss(class_string);
+      string token;
+
+      while(getline(ss, token, '-')) {   //iterate through class
+        if(token.compare("upper") == 0){
+          class_value.push_back('3');         //add value of class last in string
+        } else if(token.compare("middle") == 0){
+          class_value.push_back('2');
+        } else if(token.compare("lower") == 0){
+          class_value.push_back('1');
         }
-        classy += name[i];
       }
-      vector<string> parts = sep(classy);
-    }
-  }
+      
+      class_value = string(class_value.rbegin(), class_value.rend()); //reverse string to get highest class value first
+      
+      while(class_value.length() != 10) {
+        class_value.push_back('2');     //pad with 2:s (middle class) if shorter than 10 classes
+      }
 
+      //convert string to unsigned long
+      unsigned long value = 0;
+      for(auto it = class_value.begin(); it != class_value.end();++it){
+        value *= 10;
+        value += *it-'0';
+      }
+
+      //add to map and vector
+      m[name] = value;
+      v.push_back(name);
+    }
+
+    //sort vector using myfunction
+    sort(v.begin(),v.end(),myfunction);
+
+    //print sorted vector
+    for(auto it = v.begin(); it != v.end(); ++it){
+      cout << *it << endl;
+    }
+    cout << "==============================" << endl;
+  }
   return 0;
 }

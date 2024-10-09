@@ -1,76 +1,92 @@
 #include <bits/stdc++.h>
+
 using namespace std;
-
-typedef tuple<int, int, int> iii;
 typedef vector<int> vi;
+typedef vector<vi> vvi;
 
-// UFDS code from ch2/ownlibrary/ufds.cpp
-// Union-Find Disjoint Sets Library written in OOP manner, using both path compression and union by rank heuristics
-class UnionFind {                                // OOP style
-private:
-  vi p, rank, setSize;                           // vi p is the key part
-  int numSets;
-public:
-  UnionFind(int N) {
-    p.assign(N, 0); for (int i = 0; i < N; ++i) p[i] = i;
-    rank.assign(N, 0);                           // optional speedup
-    setSize.assign(N, 1);                        // optional feature
-    numSets = N;                                 // optional feature
-  }
-  int findSet(int i) { return (p[i] == i) ? i : (p[i] = findSet(p[i])); }
-  bool isSameSet(int i, int j) { return findSet(i) == findSet(j); }
-  void unionSet(int i, int j) {
-    if (isSameSet(i, j)) return;                 // i and j are in same set
-    int x = findSet(i), y = findSet(j);          // find both rep items
-    if (rank[x] > rank[y]) swap(x, y);           // keep x 'shorter' than y
-    p[x] = y;                                    // set x under y
-    if (rank[x] == rank[y]) ++rank[y];           // optional speedup
-    setSize[y] += setSize[x];                    // combine set sizes at y
-    --numSets;                                   // a union reduces numSets
-  }
-  int numDisjointSets() { return numSets; }
-  int sizeOfSet(int i) { return setSize[findSet(i)]; }
+int inf = 1 << 30;
+
+vi dx = {1, -1, 0, 0};
+vi dy = {0, 0, 1, -1};
+
+int n, m;
+
+bool inrange(int nextx, int nexty){
+  return nextx >= 0 && nexty >= 0 && nextx < n && nexty < m;
+}
+
+struct state{
+  int x;
+  int y;
+  int val;
 };
 
-int main() {
-  /*
-  // Graph in Figure 4.10 left, format: list of weighted edges
-  // This example shows another form of reading graph input
-  5 7
-  0 1 4
-  0 2 4
-  0 3 6
-  0 4 6
-  1 2 2
-  2 3 8
-  3 4 9
-  */
-
-  freopen("mst_in.txt", "r", stdin);
-
-  // Kruskal's algorithm
-  int V, E; scanf("%d %d", &V, &E);
-  vector<iii> EL(E);
-  for (int i = 0; i < E; ++i) {
-    int u, v, w; scanf("%d %d %d", &u, &v, &w);  // read as (u, v, w)
-    EL[i] = {w, u, v};                           // reorder as (w, u, v)
+bool operator<(const state &s1, const state &s2){
+  if (s1.val == s2.val){
+    if (s1.x == s2.x){
+      return s1.y < s2.y;
+    }
+    return s1.x < s2.x;
   }
-  sort(EL.begin(), EL.end());                    // sort by w, O(E log E)
-  // note: std::tuple has built-in comparison function
+  return s1.val > s2.val;
+}
 
-  int mst_cost = 0, num_taken = 0;               // no edge has been taken
-  UnionFind UF(V);                               // all V are disjoint sets
-  // note: the runtime cost of UFDS is very light
-  for (int i = 0; i < E; ++i) {                  // up to O(E)
-    auto [w, u, v] = EL[i];                      // C++17 style
-    if (UF.isSameSet(u, v)) continue;            // already in the same CC
-    mst_cost += w;                               // add w of this edge
-    UF.unionSet(u, v);                           // link them
-    ++num_taken;                                 // 1 more edge is taken
-    if (num_taken == V-1) break;                 // optimization
+void fast(){
+  ios::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+}
+
+int main(){
+
+  fast();
+
+  cin >> n >> m;
+
+  vvi val(n, vi(m));
+  vvi vis(n, vi(m, false));
+  vvi best(n, vi(m, inf));
+
+  for (int i = 0; i < n; i++){
+    for (int j = 0; j < m; j++){
+      cin >> val[i][j];
+    }
   }
-  // note: the number of disjoint sets must eventually be 1 for a valid MST
-  printf("MST cost = %d (Kruskal's)\n", mst_cost);
+
+  best[0][0] = 0;
+
+  priority_queue<state> q;
+  q.push({0, 0, 0});
+
+  while (!q.empty()){
+    int currx = q.top().x;
+    int curry = q.top().y;
+    q.pop();
+
+    if (vis[currx][curry]){
+      continue;
+    }
+    vis[currx][curry] = true;
+
+    for (int i = 0; i < 4; i++){
+      int nextx = currx + dx[i];
+      int nexty = curry + dy[i];
+
+      if (!inrange(nextx, nexty)){
+        continue;
+      }
+
+      int nextval = max(0, val[nextx][nexty] - val[currx][curry]);
+      nextval = max(nextval, best[currx][curry]);
+
+      if (best[nextx][nexty] > nextval){
+        best[nextx][nexty] = nextval;
+        q.push({nextx, nexty, nextval});
+      }
+    }
+  }
+
+  cout << best[n - 1][m - 1] << endl;
 
   return 0;
 }
