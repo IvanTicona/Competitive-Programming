@@ -2,13 +2,12 @@
 
 using namespace std;
 
-map<string,unsigned long> m;
+map<string, long> m;
 vector<string> v;
 
-//sorts vector, primarily by value, secondary by name
-bool myfunction (string a, string b) {
-  unsigned long al = m[a];
-  unsigned long bl = m[b];
+bool sortNames (string a, string b) {
+  long al = m[a];
+  long bl = m[b];
   if(al != bl){
     return (m[a]>m[b]);
   } else {
@@ -26,23 +25,21 @@ int main(){
     int n;
     cin >> n;
 
-    //read input
     for(int j = 0; j < n; ++j){
 
       string name; cin >> name;
       name = name.substr(0,name.length()-1);
 
-      string class_string; cin >> class_string; //class
-      string throw_away; cin >> throw_away; //throw away "class"
+      string class_string; cin >> class_string;
+      string throw_away; cin >> throw_away;
 
-
-      string class_value = "";    //Empty string to start with
+      string class_value = "";
       istringstream ss(class_string);
       string token;
 
-      while(getline(ss, token, '-')) {   //iterate through class
+      while(getline(ss, token, '-')) {
         if(token.compare("upper") == 0){
-          class_value.push_back('3');         //add value of class last in string
+          class_value.push_back('3');
         } else if(token.compare("middle") == 0){
           class_value.push_back('2');
         } else if(token.compare("lower") == 0){
@@ -50,31 +47,29 @@ int main(){
         }
       }
       
-      class_value = string(class_value.rbegin(), class_value.rend()); //reverse string to get highest class value first
+      class_value = string(class_value.rbegin(), class_value.rend());
+      //reverse string to get highest class value first
       
       while(class_value.length() != 10) {
-        class_value.push_back('2');     //pad with 2:s (middle class) if shorter than 10 classes
+        class_value.push_back('2');
       }
 
-      //convert string to unsigned long
-      unsigned long value = 0;
-      for(auto it = class_value.begin(); it != class_value.end();++it){
+      long value = 0;
+      for(auto c: class_value){
         value *= 10;
-        value += *it-'0';
+        value += c-'0';
       }
 
-      //add to map and vector
       m[name] = value;
       v.push_back(name);
     }
 
-    //sort vector using myfunction
-    sort(v.begin(),v.end(),myfunction);
+    sort(v.begin(), v.end(), sortNames);
 
-    //print sorted vector
-    for(auto it = v.begin(); it != v.end(); ++it){
-      cout << *it << endl;
+    for(auto name: v){
+      cout << name << endl;
     }
+
     cout << "==============================" << endl;
   }
   return 0;
