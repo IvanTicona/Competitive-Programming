@@ -1,54 +1,113 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
+int inf = 1 << 30;
 
-bool includes(vector<string> &inventory, string item){
-  for(string &i: inventory){
-    if(i.compare(item)==0) return true;
-  }
-  return false;
-}
+int main()
+{
+  int n, k;
+  cin >> n >> k;
 
-int main(){
+  // Set up data structures
+  unordered_map<string, set<int>> m;
+  vector<int> items;
 
-  freopen("INPUT.txt", "r", stdin);
-  freopen("OUTPUT.txt", "w", stdout);
-
-  int n, k; cin >> n >> k;
-
-  vector< vector<string> > inventory(n);
-
-  for (int i = 0; i < k; i++){
-    int store; cin >> store;
-    string item; cin >> item;
-    inventory[store].push_back(item);
+  // Read in the first half of the data
+  for (int i = 0; i < k; i++)
+  {
+    int store;
+    string item;
+    cin >> store >> item;
+    m[item].insert(store);
   }
 
-  int m; cin >> m;
-  queue<string> q;
-  for (int i = 0; i < m; i++){
-    string t; cin >> t;
-    q.push(t);
-  }
-  //Unique ONE PATH
-  //impossible theres no path
+  // Keep track of input
+  vector<string> input;
 
-  bool unique = true;
-  for (int i = 0; i < n-1; i++){
-    string item = q.front(); q.pop();
-    if(!includes(inventory[i], item)){
-      unique = false;
-      break;
+  // Read in the second half
+  int q;
+  cin >> q;
+  for (int i = 0; i < q; i++)
+  {
+    string item;
+    cin >> item;
+    input.push_back(item);
+  }
+
+  // Get max from lo to hi
+  int maxhere = 0;
+  for (int i = 0; i < q; i++)
+  {
+    string curr = input[i];
+    vector<int> rem;
+    for (auto i : m[curr])
+    {
+      if (i < maxhere)
+      {
+        rem.push_back(i);
+      }
+    }
+    for (auto i : rem)
+    {
+      m[curr].erase(i);
+    }
+    if (m[curr].size() > 0)
+    {
+      maxhere = max(*m[curr].begin(), maxhere);
     }
   }
-  if(unique){
-    cout<<"unique"<<endl;
-    return 0;
-  }else if(!unique){
-    cout<<"impossible"<<endl;
+
+  // Get min from hi to lo
+  int minhere = inf;
+  for (int i = q - 1; i >= 0; i--)
+  {
+    string curr = input[i];
+    vector<int> rem;
+    for (auto i : m[curr])
+    {
+      if (i > minhere)
+      {
+        rem.push_back(i);
+      }
+    }
+    for (auto i : rem)
+    {
+      m[curr].erase(i);
+    }
+    if (m[curr].size() > 0)
+    {
+      minhere = min(*m[curr].rbegin(), minhere);
+    }
   }
-  
-  //Ambiguous multiple paths
-  
+
+  // Find answer
+  bool works = true;
+  bool ambig = false;
+  for (auto i : input)
+  {
+    if (m[i].size() < 1)
+    {
+      works = false;
+    }
+    if (m[i].size() > 1)
+    {
+      ambig = true;
+    }
+  }
+
+  // Print answer
+  if (!works)
+  {
+    cout << "impossible" << endl;
+  }
+  else if (ambig)
+  {
+    cout << "ambiguous" << endl;
+  }
+  else
+  {
+    cout << "unique" << endl;
+  }
+
   return 0;
 }
