@@ -1,65 +1,87 @@
 #include <bits/stdc++.h>
+
 using namespace std;
 
-using ll = long long;
-using vi = vector<int>;
-#define f first
-#define s second
-#define pb push_back
-#define all(x) begin(x), end(x)
-
-#define F0R(i, a) for (int i = 0; i < (a); i++)
-#define FOR(i, a, b) for (int i = (a); i <= (b); i++)
-#define R0F(i, a) for (int i = (a) - 1; i >= 0; i--)
-#define ROF(i, a, b) for (int i = (b); i >= a; i--)
-#define trav(a, x) for (auto &a : x)
-
 int n, m;
-ll adj[501][501], oadj[501][501];
 
-ll flow[501];
-bool V[501];
-int pa[501];
-using pii = pair<int, int>;
-vector<pii> ans;
+long long adj[501][501];
+long long oadj[501][501];
+bool vis[501];
+int path[501];
+vector<pair<int, int>> minCutEdges;
 
-bool reachable() {
-	memset(V, false, sizeof(V));
-	queue<int> Q;
-	Q.push(1);
-	V[1] = 1;
-	while (!Q.empty()) {
-		int i = Q.front();
-		Q.pop();
-		FOR(j, 1, n) if (adj[i][j] && !V[j]) V[j] = 1, pa[j] = i, Q.push(j);
-	}
-	return V[n];
+bool reachable()
+{
+  memset(vis, false, sizeof(vis));
+  queue<int> Q;
+  Q.push(1);
+  vis[1] = true;
+  while (!Q.empty())
+  {
+    int u = Q.front();
+    Q.pop();
+    for (int v = 1; v <= n; v++)
+    {
+      if (adj[u][v] && !vis[v])
+      {
+        vis[v] = true;
+        path[v] = u;
+        Q.push(v);
+      }
+    }
+  }
+  return vis[n];
 }
 
-int main() {
-	cin >> n >> m;
-	FOR(i, 1, n) FOR(j, 1, n) adj[i][j] = oadj[i][j] = 0;
-	F0R(i, m) {
-		ll a, b;
-		cin >> a >> b;
-		adj[a][b]++, adj[b][a]++;
-		oadj[a][b]++, oadj[b][a]++;
-	}
-	int v, u;
-	while (reachable()) {
-		ll flow = 1e18;
-		for (v = n; v != 1; v = pa[v]) {
-			u = pa[v];
-			flow = min(flow, adj[u][v]);
-		}
-		for (v = n; v != 1; v = pa[v]) {
-			u = pa[v];
-			adj[u][v] -= flow;
-			adj[v][u] += flow;
-		}
-	}
-	reachable();
-	FOR(i, 1, n) FOR(j, 1, n) if (V[i] && !V[j] && oadj[i][j]) ans.pb({i, j});
-	cout << ans.size() << '\n';
-	trav(a, ans) cout << a.f << " " << a.s << '\n';
+int main()
+{
+
+  cin >> n >> m;
+  memset(adj, 0, sizeof(adj));
+  memset(oadj, 0, sizeof(oadj));
+
+  for (int i = 0; i < m; i++)
+  {
+    int u, v;
+    cin >> u >> v;
+    adj[u][v]++, adj[v][u]++;
+    oadj[u][v]++, oadj[v][u]++;
+  }
+
+  int u, v;
+  // edmondskarp
+  while (reachable())
+  {
+    long long flow = 1e18;
+    for (v = n; v != 1; v = path[v])
+    {
+      u = path[v];
+      flow = min(flow, adj[u][v]);
+    }
+    for (v = n; v != 1; v = path[v])
+    {
+      u = path[v];
+      adj[u][v] -= flow;
+      adj[v][u] += flow;
+    }
+  }
+  
+  reachable();
+  for (int i = 1; i <= n; i++)
+  {
+    for (int j = 1; j <= n; j++)
+    {
+      if (vis[i] && !vis[j] && oadj[i][j])
+      {
+        minCutEdges.push_back({i, j});
+      }
+    }
+  }
+  cout << minCutEdges.size() << endl;
+  for (auto &a : minCutEdges)
+  {
+    cout << a.first << " " << a.second << endl;
+  }
+
+  return 0;
 }
