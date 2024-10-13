@@ -1,25 +1,65 @@
-#include<bits/stdc++.h>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-int main(){
+using ll = long long;
+using vi = vector<int>;
+#define f first
+#define s second
+#define pb push_back
+#define all(x) begin(x), end(x)
 
-  // freopen("input.txt", "r", stdin);
-  // freopen("output.txt", "w", stdout);
+#define F0R(i, a) for (int i = 0; i < (a); i++)
+#define FOR(i, a, b) for (int i = (a); i <= (b); i++)
+#define R0F(i, a) for (int i = (a) - 1; i >= 0; i--)
+#define ROF(i, a, b) for (int i = (b); i >= a; i--)
+#define trav(a, x) for (auto &a : x)
 
-  int n, m; cin >> n >> m;
-  vector<vector<int>> graph(n+1);
+int n, m;
+ll adj[501][501], oadj[501][501];
 
-  for(int i = 0; i < m; i++){
-    int u, v; cin >> u >> v;
-    graph[u].push_back(v);
-    graph[v].push_back(u);
-  }
-  cout << graph[n].size() << endl;
-  for(int neighbor : graph[n]){
-    cout << neighbor << " " << n << endl;
-  }
-  cout << endl;
+ll flow[501];
+bool V[501];
+int pa[501];
+using pii = pair<int, int>;
+vector<pii> ans;
 
-  return 0;
+bool reachable() {
+	memset(V, false, sizeof(V));
+	queue<int> Q;
+	Q.push(1);
+	V[1] = 1;
+	while (!Q.empty()) {
+		int i = Q.front();
+		Q.pop();
+		FOR(j, 1, n) if (adj[i][j] && !V[j]) V[j] = 1, pa[j] = i, Q.push(j);
+	}
+	return V[n];
+}
+
+int main() {
+	cin >> n >> m;
+	FOR(i, 1, n) FOR(j, 1, n) adj[i][j] = oadj[i][j] = 0;
+	F0R(i, m) {
+		ll a, b;
+		cin >> a >> b;
+		adj[a][b]++, adj[b][a]++;
+		oadj[a][b]++, oadj[b][a]++;
+	}
+	int v, u;
+	while (reachable()) {
+		ll flow = 1e18;
+		for (v = n; v != 1; v = pa[v]) {
+			u = pa[v];
+			flow = min(flow, adj[u][v]);
+		}
+		for (v = n; v != 1; v = pa[v]) {
+			u = pa[v];
+			adj[u][v] -= flow;
+			adj[v][u] += flow;
+		}
+	}
+	reachable();
+	FOR(i, 1, n) FOR(j, 1, n) if (V[i] && !V[j] && oadj[i][j]) ans.pb({i, j});
+	cout << ans.size() << '\n';
+	trav(a, ans) cout << a.f << " " << a.s << '\n';
 }
