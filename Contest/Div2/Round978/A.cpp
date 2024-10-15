@@ -15,27 +15,16 @@ int main(){
     for(int &p: people) cin >> p;
     int happy=0, alone=0;
     for(int &p: people){
-      if(p>1){
-        if(p%2==0){
-          happy+=p;
-        }else{
-          happy+=p-1;
-          alone++;
-        }
-        r-=p/2;
-      }else{
-        alone++;
-      }
+      int s = p/2;
+      r -= s;
+      happy += s * 2;
+      alone += p%2;
     }
 
-    while (r>0){
-      if(alone<=r){
-        happy+=alone;
-        r-=alone;
-      }else{
-        alone-=2;
-        r--;
-      }
+    if(alone<=r){
+      happy+=alone;
+    }else{
+      happy += 2 * r - alone;
     }
 
     cout << happy << endl;
