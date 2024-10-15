@@ -2,62 +2,49 @@
 
 using namespace std;
 
-vector<pair<int, int>> edgesGraph;
+typedef pair<int, int> ii;
 
-// Function that returns true if a simple graph exists and prints the edges
-bool graphExistsAndPrintEdges(vector<int> &a, int n)
+vector<ii> Graph;
+
+bool graphExists(vector<int> &a, int n)
 {
-  vector<pair<int, int>> edges; // Store the edges as pairs of vertices
+  vector<ii> graphsEdges;
 
-  // Priority queue to keep track of degrees (max heap)
-  priority_queue<pair<int, int>> pq;
+  priority_queue<ii> pq;
 
-  // Initialize the priority queue with degrees and their corresponding indices
   for (int i = 0; i < n; i++)
   {
     if (a[i] > 0)
       pq.push({a[i], i});
   }
 
-  // Continue until the queue is empty
   while (!pq.empty())
   {
-    // Extract the vertex with the highest degree
-    auto [degree, idx] = pq.top();
-    pq.pop();
+    auto [degree, u] = pq.top(); pq.pop();
 
-    // If degree is 0, the graph is valid
     if (degree == 0)
       break;
 
-    // If there are not enough vertices to connect, return false
     if (degree > pq.size())
       return false;
 
-    // Collect the next "degree" vertices to connect with the current one
-    vector<pair<int, int>> temp;
+    vector<ii> temp;
     for (int i = 0; i < degree; i++)
     {
-      auto [nextDegree, nextIdx] = pq.top();
+      auto [degree, v] = pq.top();
       pq.pop();
-
-      // Create an edge between idx and nextIdx
-      edges.push_back({idx, nextIdx});
-
-      // Decrease the degree of the connected vertex and add back to the queue if necessary
-      if (--nextDegree > 0)
-        temp.push_back({nextDegree, nextIdx});
+      graphsEdges.push_back({u, v});
+      if (--degree > 0)
+        temp.push_back({degree, v});
     }
 
-    // Push all modified vertices back into the priority queue
-    for (auto &[nextDegree, nextIdx] : temp)
-      pq.push({nextDegree, nextIdx});
+    for (auto &[degree, v]: temp)
+      pq.push({degree, v});
   }
 
-  // Print all the edges if the graph is valid
-  for (auto &edge : edges)
+  for (auto &edge: graphsEdges)
   {
-    edgesGraph.push_back({edge.first + 1, edge.second + 1});
+    Graph.push_back({edge.first + 1, edge.second + 1});
   }
   return true;
 }
@@ -70,7 +57,7 @@ int main()
   cin >> n;
   vector<int> a(n);
   int total = 0;
-  for (int &ai : a)
+  for (int &ai: a)
   {
     cin >> ai;
     total += ai;
@@ -82,10 +69,10 @@ int main()
     return 0;
   }
 
-  if (graphExistsAndPrintEdges(a, n))
+  if (graphExists(a, n))
   {
-    cout << edgesGraph.size() << endl;
-    for (auto &edge : edgesGraph)
+    cout << Graph.size() << endl;
+    for (auto &edge: Graph)
     {
       cout << edge.first << " " << edge.second << endl;
     }
