@@ -33,32 +33,50 @@ Author: Ivan Ticona
 using namespace std;
 
 #define INF 1000000000
+#define EPS 1e-9
 #define MOD 1000000007
 #define FOR(i, a, b) for(int i = a; i <= b; i++)
+#define RFOR(i, a, b) for(int i = a; i >= b; i--)
+#define FORP(i, a, b, c) for(int i = a; i <= b; i += c)
+#define RFORP(i, a, b, c) for(int i = a; i >= b; i -= c)
+#define F first
+#define S second
 #define all(x) x.begin(), x.end()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
+#define mp make_pair
+#define rv(x) for(auto &i: x) cin >> i
+#define includes(x, y) x.find(y) != x.end()
+#define fill(x, y) memset(x, y, sizeof(x))
+#define mxe(x) *max_element(all(x))
+#define mne(x) *min_element(all(x))
 
 typedef long long ll;
+typedef unsigned long long ull;
+typedef unsigned int ui;
 typedef pair<int, int> ii;
 typedef vector<int> vi;
+typedef vector<string> vs;
+typedef vector<bool> vb;
 typedef vector<ll> vll;
 typedef vector<vi> vvi;
 typedef vector<ii> vii;
 
-int f(int a, int b){
-  if(a < b) return -1;
-  return a != b;
-}
-
 void solve(){
-  int a, b, c, d;
-  cin >> a >> b >> c >> d;
-  int cnt = 0;
-  if(f(a, c) + f(b, d) > 0) cnt++;
-  if(f(a, d) + f(b, c) > 0) cnt++;
-  cout << cnt * 2 << endl;
+  string s; cin >> s;
+  ll n = sz(s), cnt = 0;
+  int j = -1, h;
+  FOR(i, 0, n-1){
+    if(s[i] == '1' && j == -1) j = i;
+    if(s[i] == '0' && j != -1){
+      h = i;
+      cnt += h-j+1;
+      s[h] = '1', s[j] = '0';
+      j++;
+    }
+  }
+  cout << cnt << endl;
 }
 
 int main(){
