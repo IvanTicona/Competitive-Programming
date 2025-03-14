@@ -1,0 +1,87 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Hello2025",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "B_Gorilla_and_the_Exam::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-B_Gorilla_and_the_Exam-Debug-9916755ea04683664a3a.json",
+					"name" : "B_Gorilla_and_the_Exam",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "C_Trip_to_the_Olympiad::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-C_Trip_to_the_Olympiad-Debug-86d883cf35fceef5b57a.json",
+					"name" : "C_Trip_to_the_Olympiad",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "D_Gifts_Order::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-D_Gifts_Order-Debug-3b1dc20b80111e95735d.json",
+					"name" : "D_Gifts_Order",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "E1_Another_Exercise_on_Graphs_Easy_Version::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-E1_Another_Exercise_on_Graphs_Easy_Version-Debug-25087a3ec161845a0f12.json",
+					"name" : "E1_Another_Exercise_on_Graphs_Easy_Version",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/ivant/OneDrive/Desktop/Hello2025/cmake-build-debug",
+		"source" : "C:/Users/ivant/OneDrive/Desktop/Hello2025"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

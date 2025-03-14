@@ -1,0 +1,9 @@
+C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-default/CMakeFiles/A_Alalay.dir
+C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-default/CMakeFiles/B_Back_to_the_Fruit_Forest.dir
+C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-default/CMakeFiles/C_Christ_of_Discord.dir
+C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-default/CMakeFiles/D_World_Domination.dir
+C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-default/CMakeFiles/E_El_Gift_from_Ronaldo.dir
+C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-default/CMakeFiles/F_Fiesta_in_the_Mountains.dir
+C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-default/CMakeFiles/G_Global_warming.dir
+C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-default/CMakeFiles/edit_cache.dir
+C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-default/CMakeFiles/rebuild_cache.dir

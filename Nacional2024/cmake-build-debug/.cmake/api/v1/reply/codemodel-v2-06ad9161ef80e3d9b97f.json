@@ -1,0 +1,132 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Nacional2024",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "A_Attention_to_the_Meeting::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-A_Attention_to_the_Meeting-Debug-60fead403025b76a9c1f.json",
+					"name" : "A_Attention_to_the_Meeting",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "B_Bacon_Number::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-B_Bacon_Number-Debug-5959ceded09eb5455623.json",
+					"name" : "B_Bacon_Number",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "E_Enigma_of_the_Jewelry_Case::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-E_Enigma_of_the_Jewelry_Case-Debug-718122aff7b54889a259.json",
+					"name" : "E_Enigma_of_the_Jewelry_Case",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "F_Fractions_are_better_when_continued::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-F_Fractions_are_better_when_continued-Debug-0ca94f80643f449cb8e0.json",
+					"name" : "F_Fractions_are_better_when_continued",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "G_Geography_of_Rivers::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-G_Geography_of_Rivers-Debug-db36c13fcdf704a84873.json",
+					"name" : "G_Geography_of_Rivers",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "H_Harmonics_with_Interference::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-H_Harmonics_with_Interference-Debug-81f61a902a867941dcd6.json",
+					"name" : "H_Harmonics_with_Interference",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "I_Ingredients_that_may_Harm_You::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-I_Ingredients_that_may_Harm_You-Debug-2e46ae99768893ba08a3.json",
+					"name" : "I_Ingredients_that_may_Harm_You",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "K_Karamell::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-K_Karamell-Debug-acd929c1059c983495c3.json",
+					"name" : "K_Karamell",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "L_Lecographically_Maximum::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-L_Lecographically_Maximum-Debug-32f6fb6a337557b49a6b.json",
+					"name" : "L_Lecographically_Maximum",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug",
+		"source" : "C:/Users/ivant/OneDrive/Desktop/Nacional2024"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

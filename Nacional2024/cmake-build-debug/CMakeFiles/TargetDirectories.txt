@@ -1,0 +1,11 @@
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/A_Attention_to_the_Meeting.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/F_Fractions_are_better_when_continued.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/E_Enigma_of_the_Jewelry_Case.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/L_Lecographically_Maximum.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/I_Ingredients_that_may_Harm_You.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/H_Harmonics_with_Interference.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/K_Karamell.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/B_Bacon_Number.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/G_Geography_of_Rivers.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ivant/OneDrive/Desktop/Nacional2024/cmake-build-debug/CMakeFiles/rebuild_cache.dir

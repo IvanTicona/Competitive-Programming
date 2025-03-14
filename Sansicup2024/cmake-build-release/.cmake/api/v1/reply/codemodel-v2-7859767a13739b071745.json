@@ -1,0 +1,114 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "Sansicup2024",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "A_Alalay::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-A_Alalay-Release-164826951172d08bd9b4.json",
+					"name" : "A_Alalay",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "B_Back_to_the_Fruit_Forest::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-B_Back_to_the_Fruit_Forest-Release-fe2310d519153c283fca.json",
+					"name" : "B_Back_to_the_Fruit_Forest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "C_Christ_of_Discord::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-C_Christ_of_Discord-Release-a90180deeaaa4948d876.json",
+					"name" : "C_Christ_of_Discord",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "D_World_Domination::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-D_World_Domination-Release-da9c30c68868319f8bf2.json",
+					"name" : "D_World_Domination",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "E_El_Gift_from_Ronaldo::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-E_El_Gift_from_Ronaldo-Release-aef3bb54159cfad254c8.json",
+					"name" : "E_El_Gift_from_Ronaldo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "F_Fiesta_in_the_Mountains::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-F_Fiesta_in_the_Mountains-Release-e2964deb064dc928e123.json",
+					"name" : "F_Fiesta_in_the_Mountains",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "G_Global_warming::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-G_Global_warming-Release-d62011920a245791239e.json",
+					"name" : "G_Global_warming",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/ivant/OneDrive/Desktop/Sansicup2024/cmake-build-release",
+		"source" : "C:/Users/ivant/OneDrive/Desktop/Sansicup2024"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 7
+	}
+}

@@ -1,0 +1,6 @@
+C:/Users/ivant/OneDrive/Desktop/Hello2025/cmake-build-debug/CMakeFiles/B_Gorilla_and_the_Exam.dir
+C:/Users/ivant/OneDrive/Desktop/Hello2025/cmake-build-debug/CMakeFiles/C_Trip_to_the_Olympiad.dir
+C:/Users/ivant/OneDrive/Desktop/Hello2025/cmake-build-debug/CMakeFiles/E1_Another_Exercise_on_Graphs_Easy_Version.dir
+C:/Users/ivant/OneDrive/Desktop/Hello2025/cmake-build-debug/CMakeFiles/D_Gifts_Order.dir
+C:/Users/ivant/OneDrive/Desktop/Hello2025/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ivant/OneDrive/Desktop/Hello2025/cmake-build-debug/CMakeFiles/rebuild_cache.dir

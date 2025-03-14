@@ -1,0 +1,3 @@
+C:/Users/ivant/OneDrive/Desktop/2997Round/cmake-build-debug/CMakeFiles/C_Palindromic_Subsequences.dir
+C:/Users/ivant/OneDrive/Desktop/2997Round/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/ivant/OneDrive/Desktop/2997Round/cmake-build-debug/CMakeFiles/rebuild_cache.dir

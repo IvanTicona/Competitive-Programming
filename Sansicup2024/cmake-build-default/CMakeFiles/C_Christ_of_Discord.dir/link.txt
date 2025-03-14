@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2024.3.1.1\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\C_Christ_of_Discord.dir/objects.a
+C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\ar.exe qc CMakeFiles\C_Christ_of_Discord.dir/objects.a @CMakeFiles\C_Christ_of_Discord.dir\objects1.rsp
+C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\G__~1.EXE -Wl,--whole-archive CMakeFiles\C_Christ_of_Discord.dir/objects.a -Wl,--no-whole-archive -o C_Christ_of_Discord.exe -Wl,--out-implib,libC_Christ_of_Discord.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\C_Christ_of_Discord.dir\linkLibs.rsp
