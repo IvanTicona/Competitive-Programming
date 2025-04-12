@@ -1,3 +1,4 @@
+
 /*            
 //      Created by ivant.
 */              
@@ -15,7 +16,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -41,29 +41,46 @@ typedef vector<pll> vpll;
 
 void solve(){
 
-  int n; cin >> n;
-  vll a(n), b; rv(a);
-
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
-  }
-
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
+  int q; cin >> q;
+  vi a(q); rv(a);
+  if(q <= 2 || is_sorted(all(a))){
+    string res(q, '1');
+    cout << res << "\n";
     return;
   }
+  string res = "";
+  bool mid = false;
+  int first, from;
 
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
+  FOR(i, 0, q-1) {
+    if(i == 0) {
+      first =  a[i];
+      from = a[i];
+      res += "1";
+    } else {
+      if(mid) {
+        if (from <= a[i] && a[i] <= first) {
+          from = a[i];
+          res += '1';
+        } else {
+          res += '0';
+        }
+      } else {
+        if(a[i] >= from) {
+          from = a[i];
+          res += "1";
+        } else if(a[i] <= first) {
+          mid = true;
+          from = a[i];
+          res += "1";
+        } else {
+          res += "0";
+        }
+      }
+    }
   }
 
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
+  cout << res << "\n";
 }
 
 int main(){

@@ -15,7 +15,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -42,28 +41,26 @@ typedef vector<pll> vpll;
 void solve(){
 
   int n; cin >> n;
-  vll a(n), b; rv(a);
-
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
+  vvi perm(n, vi(n-1));
+  vi p(n, 0);
+  vi cnt(n+1, 0);
+  
+  FOR (i, 0, n-1) {
+    p[i] = i+1;
+    FOR (j, 0, n-2){
+      cin >> perm[i][j];
+      if(j == 0) cnt[perm[i][j]]++;
+    }
   }
-
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
+  FOR (i, 1, n) {
+    if(cnt[i] == n-1){
+      p[0] = i;
+      break;
+    }
   }
+  FOR (i, 0, n-1) if(perm[i][0] != p[0]) FOR (j, 0, n-1) p[j+1] = perm[i][j];
 
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
-
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
+  FOR (i, 0, n-1) cout << p[i] << " \n"[i == n-1];
 }
 
 int main(){

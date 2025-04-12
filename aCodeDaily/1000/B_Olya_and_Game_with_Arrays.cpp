@@ -15,7 +15,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -39,31 +38,39 @@ typedef vector<vi> vvi;
 typedef vector<ii> vii;
 typedef vector<pll> vpll;
 
+pll find_min_second_min(vector<ll> a) {
+  ll min1 = a[0];
+  ll min2 = a[1];
+  if (min1 > min2) swap(min1, min2);
+  for (size_t i = 2; i < a.size(); i++) {
+    if (a[i] < min1) {
+      min2 = min1;
+      min1 = a[i];
+    } else if (a[i] < min2) {
+      min2 = a[i];
+    }
+  }
+  return {min1, min2};
+}
+
 void solve(){
 
-  int n; cin >> n;
-  vll a(n), b; rv(a);
-
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
+  int n;
+  cin >> n;
+  ll sum_s = 0;
+  ll min_m = 1e18;
+  ll min_s = 1e18;
+  for (int i = 0; i < n; i++) {
+    int m; cin >> m;
+    vll a(m);
+    for (int j = 0; j < m; j++) cin >> a[j];
+    auto [m_i, s_i] = find_min_second_min(a);
+    sum_s += s_i;
+    min_m = min(min_m, m_i);
+    min_s = min(min_s, s_i);
   }
-
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
-  }
-
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
-
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
+  ll beauty = sum_s - min_s + min_m;
+  cout << beauty << "\n";
 }
 
 int main(){

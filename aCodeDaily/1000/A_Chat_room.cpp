@@ -1,6 +1,6 @@
-/*            
-//      Created by ivant.
-*/              
+/*
+Author: Ivan Ticona
+*/
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -15,7 +15,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -30,40 +29,23 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef unsigned int ui;
 typedef pair<int, int> ii;
-typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 typedef vector<string> vs;
 typedef vector<bool> vb;
 typedef vector<ll> vll;
 typedef vector<vi> vvi;
 typedef vector<ii> vii;
-typedef vector<pll> vpll;
 
 void solve(){
 
-  int n; cin >> n;
-  vll a(n), b; rv(a);
-
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
-  }
-
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
-  }
-
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
-
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
+  string s; cin >> s;
+  string hello = "hello";
+  
+  int j = 0;
+  FOR(i, 0, sz(s) - 1) if (s[i] == hello[j]) j++;
+ 
+  if (j == 5) cout << "YES\n";
+  else cout << "NO\n";
 }
 
 int main(){
@@ -74,10 +56,10 @@ int main(){
   // freopen("input.txt", "r", stdin);
   // freopen("output.txt", "w", stdout);
 
-  int t; cin >> t;
-  while(t--){
+  // int t; cin >> t;
+  // while(t--){
     solve();
-  }
+  // }
 
   return 0;
 }

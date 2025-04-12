@@ -1,6 +1,6 @@
-/*            
-//      Created by ivant.
-*/              
+/*
+Author: Ivan Ticona
+*/
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -8,14 +8,13 @@ using namespace std;
 #define INF 1000000000
 #define EPS 1e-9
 #define MOD 1000000007
-#define FOR(i, a, b) for(int i = a; i <= b; i++)
+#define FOR(i, a, b) for(ll i = a; i <= b; i++)
 #define RFOR(i, a, b) for(int i = a; i >= b; i--)
 #define FORP(i, a, b, c) for(int i = a; i <= b; i += c)
 #define RFORP(i, a, b, c) for(int i = a; i >= b; i -= c)
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -30,40 +29,39 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef unsigned int ui;
 typedef pair<int, int> ii;
-typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 typedef vector<string> vs;
 typedef vector<bool> vb;
 typedef vector<ll> vll;
 typedef vector<vi> vvi;
 typedef vector<ii> vii;
-typedef vector<pll> vpll;
+
+void generateSquare(ll n, ll a11, ll c, ll d, map<ll, ll> &elemnts){
+  ll base = a11;
+  FOR(i, 0, n - 1){
+    FOR(j, 0, n - 1){
+      elemnts[base + d * j]++;
+    }
+    base += c;
+  }
+}
 
 void solve(){
 
-  int n; cin >> n;
-  vll a(n), b; rv(a);
+  int n, c, d; cin >> n >> c >> d;
+  map<ll, ll> elemnts;
+  map<ll, ll> givenNumbers;
+  int a11 = INF;
 
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
+  FOR(i, 1, n*n){
+    int v; cin >> v;
+    a11 = min(a11, v);
+    givenNumbers[v]++;
   }
-
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
-  }
-
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
-
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
+  generateSquare(n, a11, c, d, elemnts);
+  
+  if(elemnts == givenNumbers) cout << "YES" << endl;
+  else cout << "NO" << endl;
 }
 
 int main(){

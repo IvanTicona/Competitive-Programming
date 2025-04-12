@@ -1,6 +1,6 @@
-/*            
-//      Created by ivant.
-*/              
+/*
+Author: Ivan Ticona
+*/
 #include<bits/stdc++.h>
 
 using namespace std;
@@ -15,7 +15,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -30,40 +29,45 @@ typedef long long ll;
 typedef unsigned long long ull;
 typedef unsigned int ui;
 typedef pair<int, int> ii;
-typedef pair<ll, ll> pll;
 typedef vector<int> vi;
 typedef vector<string> vs;
 typedef vector<bool> vb;
 typedef vector<ll> vll;
 typedef vector<vi> vvi;
 typedef vector<ii> vii;
-typedef vector<pll> vpll;
 
 void solve(){
 
-  int n; cin >> n;
-  vll a(n), b; rv(a);
-
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
+  ll n, m, k; cin >> n >> m >> k;
+  
+  vector<ll> ai(m), qi(k); rv(ai); rv(qi);
+  ll mcount = n - k;
+  string result;
+  
+  if(mcount == 0) result = string(m, '1'); // Conoce todas las preguntas
+  else if(mcount == 1){
+    ll no = 0;
+    ll yes = 1;
+    
+    // Buscamos la pregunta que no conoce
+    FOR(i, 0, k-1){
+      if(qi[i] == yes) yes++;
+      else{
+        no = yes; // Encontro la pregunta que no conoce
+        break;
+      }
+    }
+    if(no == 0) no = n; // Conoce de 1 a n-1 preguntas entonces no conoce la n
+    
+    result.reserve(m);
+    FOR(i, 0, m-1){
+      if(ai[i] == no) result += '1';
+      else result += '0';
+    }
   }
-
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
-  }
-
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
-
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
+  else result = string(m, '0'); // No conoce 2 o más preguntas
+  
+  cout << result << "\n";
 }
 
 int main(){

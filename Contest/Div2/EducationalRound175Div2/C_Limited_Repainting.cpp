@@ -15,7 +15,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -41,29 +40,43 @@ typedef vector<pll> vpll;
 
 void solve(){
 
-  int n; cin >> n;
-  vll a(n), b; rv(a);
+  ll n, k; cin >> n >> k;
+  string s; cin >> s;
+  
+  vll a(n); rv(a);
+  ll maxp = mxe(a);
 
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
+  ll l = 0, r = maxp, res = maxp;
+
+  while(l <= r){
+    ll m = (l + r) / 2;
+    ll ops = 0;
+    ll i = 0;
+    while(i < n){
+      if(s[i]=='R' && a[i] > m){
+        i++;
+        continue;
+      }
+      bool blue = false;
+      while(i < n && !(s[i] == 'R' && a[i] > m)){
+        if(s[i] == 'B' && a[i] > m){
+          blue = true;
+        }
+        i++;
+      }
+      if(blue) ops++;
+    }
+
+    if(ops <= k){
+      res = m;
+      r = m - 1;
+    } else {
+      l = m + 1;
+    }
   }
 
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
-  }
+  cout << res << "\n";
 
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
-
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
 }
 
 int main(){

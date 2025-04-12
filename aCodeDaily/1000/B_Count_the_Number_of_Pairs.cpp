@@ -1,3 +1,4 @@
+
 /*            
 //      Created by ivant.
 */              
@@ -15,7 +16,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -41,29 +41,22 @@ typedef vector<pll> vpll;
 
 void solve(){
 
-  int n; cin >> n;
-  vll a(n), b; rv(a);
-
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
+  int n, k; cin >> n >> k;
+  string s; cin >> s;
+  int initial = 0, potential = 0;
+  int lower[26] = {0}, upper[26] = {0};
+  
+  for(char c : s){
+    if(islower(c)) lower[c - 'a']++;
+    else upper[c - 'A']++;
   }
-
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
+  FOR(i, 0, 25){
+    int p = min(lower[i], upper[i]);
+    int m = (lower[i] + upper[i]) / 2;
+    initial += p;
+    potential += (m - p);
   }
-
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
-
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
+  cout << initial + min(k, potential) << "\n";
 }
 
 int main(){

@@ -15,7 +15,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -42,28 +41,36 @@ typedef vector<pll> vpll;
 void solve(){
 
   int n; cin >> n;
-  vll a(n), b; rv(a);
-
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
+  vi a(n+1), b(n+1), fa(2*n+1), fb(2*n+1);
+  
+  FOR (i, 1, n) cin >> a[i];
+  FOR (i, 1, n) cin >> b[i];
+  
+  int p = 1;
+  FOR (i, 2, n){
+    if (a[i] != a[i-1]){
+      fa[a[i-1]] = max(fa[a[i-1]], i-p);
+      p = i;
+    }
   }
+  fa[a[n]] = max(fa[a[n]], n-p+1);
 
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
+  p = 1;
+  FOR (i, 2, n){
+    if (b[i] != b[i-1]){
+      fb[b[i-1]] = max(fb[b[i-1]], i-p);
+      p = i;
+    }
   }
+  fb[b[n]] = max(fb[b[n]], n-p+1);
 
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
+  int ans = 0;
+  FOR (i, 1, 2*n) ans = max(ans, fa[i]+fb[i]);
 
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
+  // Buscamos los maximos tamanios de subarrays de 
+  // cada numero en cada array, porque podemos forzar el merge
+
+  cout << ans << "\n";
 }
 
 int main(){

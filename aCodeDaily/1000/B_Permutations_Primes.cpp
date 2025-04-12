@@ -15,7 +15,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -42,28 +41,15 @@ typedef vector<pll> vpll;
 void solve(){
 
   int n; cin >> n;
-  vll a(n), b; rv(a);
-
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
+  if(n == 1) cout << "1\n";
+  else if(n == 2) cout << "1 2\n";
+  else {
+    int c = 4;
+    vi a(n, 0);
+    a[0] = 2, a[n/2] = 1, a[n-1] = 3;
+    FOR (i, 0, n-1) if(a[i] == 0) a[i] = c++;
+    FOR (i, 0, n-1) cout << a[i] << " \n"[i == n-1];
   }
-
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
-  }
-
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
-
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
 }
 
 int main(){

@@ -1,3 +1,4 @@
+
 /*            
 //      Created by ivant.
 */              
@@ -15,7 +16,6 @@ using namespace std;
 #define F first
 #define S second
 #define all(x) x.begin(), x.end()
-#define rall(x) x.rbegin(), x.rend()
 #define sort(x) sort(all(x))
 #define sz(x) (int)x.size()
 #define pb push_back
@@ -42,28 +42,7 @@ typedef vector<pll> vpll;
 void solve(){
 
   int n; cin >> n;
-  vll a(n), b; rv(a);
-
-  b.pb(a[0]);
-  FOR(i, 1, n-1){
-    if(a[i] != a[i-1]) b.pb(a[i]);
-  }
-
-  if(sz(b) <= 2){
-    cout << sz(b) << "\n";
-    return;
-  }
-
-  if(is_sorted(all(b)) || is_sorted(rall(b))){
-    cout << 2 << "\n";
-    return;
-  }
-
-  int cnt = 0;
-  FOR(i, 1, sz(b)-2){
-    if((b[i] - b[i-1]) * (b[i] - b[i+1]) > 0) cnt++;
-  }
-  cout << cnt + 2 << "\n";
+  cout << __builtin_popcount(n) << "\n";
 }
 
 int main(){
@@ -74,10 +53,10 @@ int main(){
   // freopen("input.txt", "r", stdin);
   // freopen("output.txt", "w", stdout);
 
-  int t; cin >> t;
-  while(t--){
+  // int t; cin >> t;
+  // while(t--){
     solve();
-  }
+  // }
 
   return 0;
 }
